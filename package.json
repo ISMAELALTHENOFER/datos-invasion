@@ -1,0 +1,15 @@
+{
+  "name": "datos-consolidacion-cca",
+  "version": "1.0.0",
+  "description": "Datos de Consolidación - Centros Cristianos Cielos Abiertos",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^4.21.0",
+    "mysql2": "^3.11.0"
+  }
+}
