@@ -3,86 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Datos de Consolidación — Centros Cristianos Cielos Abiertos</title>
+  <title>Datos de Consolidación — CCA</title>
   <meta name="description" content="Sistema interno de registro de datos de consolidación para Centros Cristianos Cielos Abiertos." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-            display: ['Playfair Display', 'serif'],
-          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
           colors: {
-            brand: {
-              50: '#f0f4ff', 100: '#dbe4ff', 200: '#bac8ff',
-              300: '#91a7ff', 400: '#748ffc', 500: '#5c7cfa',
-              600: '#4c6ef5', 700: '#4263eb', 800: '#3b5bdb',
-              900: '#364fc7',
-            }
+            glass: { DEFAULT: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.08)', hover: 'rgba(255,255,255,0.1)' },
           }
         }
       }
     }
   </script>
   <style>
-    .tab-transition { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
-    .card-enter { animation: fadeSlideUp 0.35s ease both; }
-    @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
+    * { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent; }
+    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.08); }
+    .glass-strong { background: rgba(255,255,255,0.07); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); border: 1px solid rgba(255,255,255,0.1); }
+    .glass-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+    .glass-input:focus { background: rgba(255,255,255,0.08); border-color: rgba(6,182,212,0.5); box-shadow: 0 0 0 1px rgba(6,182,212,0.3); }
+    .glass-select { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
+    .glass-select:focus { background: rgba(255,255,255,0.08); border-color: rgba(6,182,212,0.5); box-shadow: 0 0 0 1px rgba(6,182,212,0.3); }
+    .glow-cyan { box-shadow: 0 0 30px -5px rgba(6,182,212,0.2), 0 0 60px -15px rgba(6,182,212,0.1); }
+    .glow-emerald { box-shadow: 0 0 20px -5px rgba(16,185,129,0.15); }
+    .glow-amber { box-shadow: 0 0 20px -5px rgba(245,158,11,0.15); }
+
+    .orb {
+      position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: -1;
+      animation: orbFloat 20s ease-in-out infinite;
     }
-    .card-enter:nth-child(1) { animation-delay: 0.02s; }
-    .card-enter:nth-child(2) { animation-delay: 0.06s; }
-    .card-enter:nth-child(3) { animation-delay: 0.10s; }
-    .card-enter:nth-child(4) { animation-delay: 0.14s; }
-    .card-enter:nth-child(5) { animation-delay: 0.18s; }
-    .card-enter:nth-child(6) { animation-delay: 0.22s; }
-    .card-enter:nth-child(7) { animation-delay: 0.26s; }
-    .card-enter:nth-child(8) { animation-delay: 0.30s; }
+    .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(6,182,212,0.15), transparent 70%); top: -200px; right: -200px; animation-delay: 0s; }
+    .orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(139,92,246,0.12), transparent 70%); bottom: -150px; left: -150px; animation-delay: -7s; }
+    .orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(59,130,246,0.1), transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: -14s; }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -40px) scale(1.05); }
+      66% { transform: translate(-20px, 30px) scale(0.95); }
+    }
+
+    .card-enter { animation: fadeSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .card-enter:nth-child(1) { animation-delay: 0.03s; }
+    .card-enter:nth-child(2) { animation-delay: 0.07s; }
+    .card-enter:nth-child(3) { animation-delay: 0.11s; }
+    .card-enter:nth-child(4) { animation-delay: 0.15s; }
+    .card-enter:nth-child(5) { animation-delay: 0.19s; }
+    .card-enter:nth-child(6) { animation-delay: 0.23s; }
+    .card-enter:nth-child(7) { animation-delay: 0.27s; }
+    .card-enter:nth-child(8) { animation-delay: 0.31s; }
 
     @media (prefers-reduced-motion: reduce) {
-      .tab-transition, .card-enter { animation: none; transition: none; }
+      .orb, .orb-1, .orb-2, .orb-3 { animation: none; }
+      .card-enter { animation: none; }
     }
 
-    .field-error { @apply border-red-300 ring-1 ring-red-300; }
-    .field-success { @apply border-emerald-300; }
+    select option { background: #0f172a; color: #e2e8f0; }
   </style>
 </head>
-<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen antialiased font-sans text-slate-800">
+<body class="bg-slate-950 min-h-screen antialiased font-sans text-slate-200 overflow-x-hidden">
 
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:text-brand-700 focus:font-medium">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-slate-800 focus:px-4 focus:py-2 focus:rounded-xl focus:text-cyan-400 focus:font-medium focus:border focus:border-white/10">
     Saltar al contenido principal
   </a>
 
-  <header class="bg-white border-b border-slate-200 shadow-sm">
-    <div class="max-w-5xl mx-auto px-5 py-4 flex items-center gap-4">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white shadow-sm shrink-0">
-        <i class="fa-solid fa-cross text-lg"></i>
-      </div>
-      <div class="min-w-0">
-        <h1 class="font-display text-xl sm:text-2xl text-brand-900 leading-tight tracking-tight">Datos de Consolidación</h1>
-        <p class="text-xs sm:text-sm text-slate-400 font-medium tracking-wide uppercase">Centros Cristianos Cielos Abiertos</p>
+  <header class="sticky top-0 z-20 backdrop-blur-2xl bg-slate-950/70 border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-3.5">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20">
+          <i class="fa-solid fa-cross text-sm"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-semibold text-white tracking-tight">Datos de Consolidación</h1>
+          <p class="text-[11px] text-slate-500 font-medium tracking-wider uppercase">Centros Cristianos Cielos Abiertos</p>
+        </div>
       </div>
     </div>
   </header>
 
-  <div role="tablist" aria-label="Secciones principales" class="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm">
-    <div class="max-w-5xl mx-auto px-5">
+  <div role="tablist" aria-label="Secciones principales" class="sticky top-[61px] z-10 bg-slate-950/50 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
       <div class="flex gap-1">
         <button role="tab" id="tab-form-btn" aria-selected="true" aria-controls="tab-form-panel"
-          class="tab-btn flex items-center gap-2 px-4 py-3.5 text-sm font-medium border-b-2 transition-all duration-200 text-brand-700 border-brand-600">
+          class="tab-btn flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-[1.5px] transition-all duration-200 text-cyan-400 border-cyan-400/80">
           <i class="fa-solid fa-pen-to-square text-xs"></i>
           <span>Formulario</span>
         </button>
         <button role="tab" id="tab-list-btn" aria-selected="false" aria-controls="tab-list-panel" tabindex="-1"
-          class="tab-btn flex items-center gap-2 px-4 py-3.5 text-sm font-medium border-b-2 transition-all duration-200 text-slate-400 border-transparent hover:text-slate-600 hover:border-slate-300">
+          class="tab-btn flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-[1.5px] transition-all duration-200 text-slate-500 border-transparent hover:text-slate-300 hover:border-white/10">
           <i class="fa-solid fa-address-book text-xs"></i>
           <span>Listado</span>
         </button>
@@ -90,98 +109,88 @@
     </div>
   </div>
 
-  <main id="main-content" class="max-w-5xl mx-auto px-5 py-6">
+  <main id="main-content" class="max-w-6xl mx-auto px-6 py-8">
 
     <!-- ============ FORM TAB ============ -->
     <section id="tab-form-panel" role="tabpanel" aria-labelledby="tab-form-btn" class="tab-content focus:outline-none">
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="bg-gradient-to-r from-brand-50 to-white border-b border-slate-100 px-6 py-4">
-          <h2 class="text-sm font-semibold text-brand-800 flex items-center gap-2">
-            <i class="fa-solid fa-user-plus"></i>
-            Cargar nueva persona
-          </h2>
+      <div class="glass-strong rounded-2xl glow-cyan overflow-hidden">
+        <div class="px-6 py-4 border-b border-white/5 flex items-center gap-2.5">
+          <div class="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400/50"></div>
+          <h2 class="text-sm font-semibold text-slate-200">Cargar nueva persona</h2>
         </div>
 
         <form id="personForm" class="px-6 py-6 space-y-5" novalidate autocomplete="off" aria-label="Formulario de carga de datos">
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label for="mentor" class="block text-sm font-medium text-slate-600 mb-1.5">
-                Mentor <span class="text-red-400" aria-hidden="true">*</span>
+              <label for="mentor" class="block text-xs font-medium text-slate-400 mb-1.5 tracking-wide uppercase">
+                Mentor <span class="text-red-400/70" aria-hidden="true">*</span>
               </label>
-              <select id="mentor" required aria-required="true"
-                class="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm bg-white text-slate-800
-                       focus:ring-2 focus:ring-brand-400 focus:border-brand-400 transition shadow-sm">
-                <option value="">Cargando mentores...</option>
+              <select id="mentor" required aria-required="true" class="glass-select w-full rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none transition appearance-none">
+                <option value="" class="bg-slate-900">Cargando mentores...</option>
               </select>
             </div>
             <div>
-              <label for="invasor" class="block text-sm font-medium text-slate-600 mb-1.5">Nombre del invasor</label>
+              <label for="invasor" class="block text-xs font-medium text-slate-400 mb-1.5 tracking-wide uppercase">Invasor</label>
               <input type="text" id="invasor" placeholder="Nombre del invasor"
-                class="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm
-                       focus:ring-2 focus:ring-brand-400 focus:border-brand-400 transition shadow-sm" />
+                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition" />
             </div>
           </div>
 
           <div>
-            <label for="nombreCompleto" class="block text-sm font-medium text-slate-600 mb-1.5">
-              Nombre completo <span class="text-red-400" aria-hidden="true">*</span>
+            <label for="nombreCompleto" class="block text-xs font-medium text-slate-400 mb-1.5 tracking-wide uppercase">
+              Nombre completo <span class="text-red-400/70" aria-hidden="true">*</span>
             </label>
             <input type="text" id="nombreCompleto" required aria-required="true" placeholder="Nombre y apellido"
-              class="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm
-                     focus:ring-2 focus:ring-brand-400 focus:border-brand-400 transition shadow-sm" />
+              class="glass-input w-full rounded-xl px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition" />
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label for="celular" class="block text-sm font-medium text-slate-600 mb-1.5">Celular</label>
-              <input type="tel" id="celular" placeholder="Ej: 11 2345 6789"
-                autocomplete="tel"
-                class="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm
-                       focus:ring-2 focus:ring-brand-400 focus:border-brand-400 transition shadow-sm" />
-              <p id="celular-error" class="text-xs text-red-500 mt-1 hidden" role="alert">Número de teléfono inválido. Ingresá un número argentino válido (ej: 11 2345 6789)</p>
+              <label for="celular" class="block text-xs font-medium text-slate-400 mb-1.5 tracking-wide uppercase">Celular</label>
+              <input type="tel" id="celular" placeholder="Ej: 11 2345 6789" autocomplete="tel"
+                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition" />
+              <p id="celular-error" class="text-xs text-red-400 mt-1.5 hidden" role="alert">Número inválido (7–15 dígitos)</p>
             </div>
             <div>
-              <label for="barrio" class="block text-sm font-medium text-slate-600 mb-1.5">Barrio</label>
+              <label for="barrio" class="block text-xs font-medium text-slate-400 mb-1.5 tracking-wide uppercase">Barrio</label>
               <input type="text" id="barrio" placeholder="Barrio o localidad"
-                class="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm
-                       focus:ring-2 focus:ring-brand-400 focus:border-brand-400 transition shadow-sm" />
+                class="glass-input w-full rounded-xl px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition" />
             </div>
           </div>
 
           <div>
-            <label for="peticiones" class="block text-sm font-medium text-slate-600 mb-1.5">Peticiones</label>
+            <label for="peticiones" class="block text-xs font-medium text-slate-400 mb-1.5 tracking-wide uppercase">Peticiones</label>
             <textarea id="peticiones" rows="2" placeholder="Peticiones de oración"
-              class="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-sm resize-none
-                     focus:ring-2 focus:ring-brand-400 focus:border-brand-400 transition shadow-sm"></textarea>
+              class="glass-input w-full rounded-xl px-4 py-2.5 text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition resize-none"></textarea>
           </div>
 
           <fieldset class="border-0 p-0">
-            <legend class="text-sm font-medium text-slate-600 mb-3">Opciones adicionales</legend>
+            <legend class="text-xs font-medium text-slate-400 mb-3 tracking-wide uppercase">Opciones adicionales</legend>
             <div class="flex flex-wrap gap-3">
-              <label class="flex items-center gap-2.5 cursor-pointer select-none border border-slate-200 rounded-xl px-4 py-3 hover:border-emerald-300 hover:bg-emerald-50/40 transition-all">
-                <input type="checkbox" id="quiereVisita" class="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-400" />
-                <i class="fa-solid fa-house text-emerald-500 text-sm"></i>
-                <span class="text-sm text-slate-700">¿Quiere visita?</span>
+              <label class="flex items-center gap-2.5 cursor-pointer select-none glass rounded-xl px-4 py-3 hover:bg-white/10 transition-all">
+                <input type="checkbox" id="quiereVisita" class="w-4 h-4 rounded accent-cyan-500" />
+                <i class="fa-solid fa-house text-cyan-400 text-sm"></i>
+                <span class="text-sm text-slate-300">¿Quiere visita?</span>
               </label>
-              <label class="flex items-center gap-2.5 cursor-pointer select-none border border-slate-200 rounded-xl px-4 py-3 hover:border-amber-300 hover:bg-amber-50/40 transition-all">
-                <input type="checkbox" id="seCongregaIglesia" class="w-4 h-4 text-amber-600 rounded focus:ring-amber-400" />
-                <i class="fa-solid fa-place-of-worship text-amber-500 text-sm"></i>
-                <span class="text-sm text-slate-700">¿Se congrega en una iglesia?</span>
+              <label class="flex items-center gap-2.5 cursor-pointer select-none glass rounded-xl px-4 py-3 hover:bg-white/10 transition-all">
+                <input type="checkbox" id="seCongregaIglesia" class="w-4 h-4 rounded accent-cyan-500" />
+                <i class="fa-solid fa-place-of-worship text-violet-400 text-sm"></i>
+                <span class="text-sm text-slate-300">¿Se congrega en una iglesia?</span>
               </label>
             </div>
           </fieldset>
 
           <div aria-live="polite" id="form-feedback" class="text-sm hidden"></div>
 
-          <div class="flex items-center gap-3 pt-1">
+          <div class="flex items-center gap-4 pt-1">
             <button type="submit"
-              class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-6 py-2.5 rounded-xl transition-colors shadow-sm active:scale-[0.98]">
+              class="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-all shadow-lg shadow-cyan-500/20 active:scale-[0.97]">
               <i class="fa-solid fa-floppy-disk"></i>
               Guardar
             </button>
             <button type="reset"
-              class="inline-flex items-center gap-2 text-slate-400 hover:text-slate-600 text-sm font-medium px-4 py-2.5 rounded-xl hover:bg-slate-100 transition-colors">
+              class="inline-flex items-center gap-2 text-slate-500 hover:text-slate-300 text-sm font-medium px-4 py-2.5 rounded-xl hover:bg-white/5 transition-all">
               Limpiar
             </button>
           </div>
@@ -191,38 +200,37 @@
 
     <!-- ============ LIST TAB ============ -->
     <section id="tab-list-panel" role="tabpanel" aria-labelledby="tab-list-btn" class="tab-content hidden focus:outline-none">
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="bg-gradient-to-r from-brand-50 to-white border-b border-slate-100 px-6 py-4">
+      <div class="glass-strong rounded-2xl overflow-hidden">
+        <div class="px-6 py-4 border-b border-white/5">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <h2 class="text-sm font-semibold text-brand-800 flex items-center gap-2">
-              <i class="fa-solid fa-address-book"></i>
-              Personas registradas
-              <span id="countBadge" class="text-xs bg-brand-100 text-brand-600 font-semibold px-2.5 py-0.5 rounded-full" aria-live="polite">0</span>
-            </h2>
+            <div class="flex items-center gap-2.5">
+              <div class="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400/50"></div>
+              <h2 class="text-sm font-semibold text-slate-200">Personas registradas</h2>
+              <span id="countBadge" class="text-[11px] font-semibold bg-white/10 text-slate-300 px-2 py-0.5 rounded-full" aria-live="polite">0</span>
+            </div>
             <div class="relative w-full sm:w-72">
-              <i class="fa-solid fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-300 text-sm pointer-events-none"></i>
-              <input type="search" id="searchInput" placeholder="Buscá por nombre, barrio, mentor, invasor..."
+              <i class="fa-solid fa-search absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-600 text-sm pointer-events-none"></i>
+              <input type="search" id="searchInput" placeholder="Buscar por nombre, barrio, mentor..."
                 aria-label="Buscar personas"
-                class="w-full rounded-xl border border-slate-200 pl-9 pr-4 py-2 text-sm
-                       focus:ring-2 focus:ring-brand-400 focus:border-brand-400 transition shadow-sm" />
+                class="glass-input w-full rounded-xl pl-9 pr-4 py-2 text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition" />
             </div>
           </div>
         </div>
 
         <div class="px-6 py-5">
-          <div id="loadingState" class="text-center py-16 text-slate-300" role="status">
-            <i class="fa-solid fa-spinner fa-spin text-3xl mb-3"></i>
+          <div id="loadingState" class="text-center py-20 text-slate-600" role="status">
+            <i class="fa-solid fa-spinner fa-spin text-2xl mb-3"></i>
             <p class="text-sm">Cargando datos...</p>
           </div>
-          <div id="emptyState" class="hidden text-center py-16 text-slate-300">
-            <i class="fa-regular fa-folder-open text-4xl mb-3"></i>
-            <p class="text-sm">No hay personas registradas aún</p>
-            <p class="text-xs text-slate-200 mt-1">Completá el formulario para comenzar</p>
+          <div id="emptyState" class="hidden text-center py-20 text-slate-600">
+            <i class="fa-regular fa-folder-open text-3xl mb-3"></i>
+            <p class="text-sm text-slate-500">No hay personas registradas aún</p>
+            <p class="text-xs text-slate-600 mt-1">Completá el formulario para comenzar</p>
           </div>
-          <div id="noResults" class="hidden text-center py-16 text-slate-300">
-            <i class="fa-regular fa-circle-question text-4xl mb-3"></i>
-            <p class="text-sm">No se encontraron resultados</p>
-            <p class="text-xs text-slate-200 mt-1">Ingresá al menos 3 caracteres para buscar</p>
+          <div id="noResults" class="hidden text-center py-20 text-slate-600">
+            <i class="fa-regular fa-circle-question text-3xl mb-3"></i>
+            <p class="text-sm text-slate-500">No se encontraron resultados</p>
+            <p class="text-xs text-slate-600 mt-1">Ingresá al menos 3 caracteres para buscar</p>
           </div>
           <div id="cardsGrid" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-4" role="list" aria-label="Lista de personas registradas"></div>
         </div>
@@ -233,7 +241,7 @@
 
   <div id="toast" role="alert" aria-live="assertive" class="fixed bottom-6 right-6 z-50 hidden pointer-events-none"></div>
 
-  <footer class="text-center text-xs text-slate-300 py-6 border-t border-slate-100 mt-10">
+  <footer class="text-center text-[11px] text-slate-700 py-6 border-t border-white/[0.03] mt-10">
     &copy; 2026 Centros Cristianos Cielos Abiertos &mdash; Datos de Consolidación
   </footer>
 
@@ -277,8 +285,8 @@
         btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
         btn.tabIndex = isActive ? 0 : -1;
         btn.className = isActive
-          ? 'tab-btn flex items-center gap-2 px-4 py-3.5 text-sm font-medium border-b-2 transition-all duration-200 text-brand-700 border-brand-600'
-          : 'tab-btn flex items-center gap-2 px-4 py-3.5 text-sm font-medium border-b-2 transition-all duration-200 text-slate-400 border-transparent hover:text-slate-600 hover:border-slate-300';
+          ? 'tab-btn flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-[1.5px] transition-all duration-200 text-cyan-400 border-cyan-400/80'
+          : 'tab-btn flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-[1.5px] transition-all duration-200 text-slate-500 border-transparent hover:text-slate-300 hover:border-white/10';
       });
       [tabFormPanel, tabListPanel].forEach(el => el.classList.toggle('hidden', el.id !== `tab-${tab}-panel`));
       if (tab === 'list') loadPersonas();
@@ -293,11 +301,7 @@
         let targetIdx = -1;
         if (e.key === 'ArrowRight') targetIdx = (idx + 1) % tabBtns.length;
         if (e.key === 'ArrowLeft') targetIdx = (idx - 1 + tabBtns.length) % tabBtns.length;
-        if (targetIdx >= 0) {
-          e.preventDefault();
-          tabBtns[targetIdx].click();
-          tabBtns[targetIdx].focus();
-        }
+        if (targetIdx >= 0) { e.preventDefault(); tabBtns[targetIdx].click(); tabBtns[targetIdx].focus(); }
       });
     });
 
@@ -306,7 +310,7 @@
 
     function showToast(message, type = 'success') {
       const icons = { success: 'fa-circle-check', error: 'fa-circle-xmark' };
-      const colors = { success: 'bg-emerald-600 text-white shadow-emerald-200', error: 'bg-red-600 text-white shadow-red-200' };
+      const colors = { success: 'glass-strong glow-emerald border-emerald-500/20 text-emerald-300', error: 'glass-strong border-red-500/20 text-red-300' };
       toast.className = `fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-xl shadow-lg text-sm font-medium pointer-events-auto ${colors[type]} transition-all duration-300`;
       toast.innerHTML = `<i class="fa-solid ${icons[type]}"></i> ${message}`;
       toast.classList.remove('hidden');
@@ -323,16 +327,11 @@
 
     function checkPhone() {
       const val = celular.value.trim();
-      if (val && !validatePhone(val)) {
-        celular.classList.add('field-error');
-        celular.classList.remove('field-success');
-        celularError.classList.remove('hidden');
-        return false;
-      }
-      celular.classList.remove('field-error');
-      celular.classList.add('field-success');
-      celularError.classList.add('hidden');
-      return true;
+      const error = val && !validatePhone(val);
+      celular.classList.toggle('border-red-400/50', error);
+      celular.classList.toggle('border-white/10', !error && !val);
+      celularError.classList.toggle('hidden', !error);
+      return !error;
     }
 
     celular.addEventListener('input', checkPhone);
@@ -348,27 +347,23 @@
       if (!nombreCompleto.value.trim()) missingFields.push('nombre completo');
 
       if (missingFields.length) {
-        formFeedback.className = 'text-sm text-red-500 flex items-center gap-2';
+        formFeedback.className = 'text-sm text-red-400 flex items-center gap-2';
         formFeedback.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> Completá los campos obligatorios: ${missingFields.join(', ')}`;
         return;
       }
 
       if (celular.value.trim() && !validatePhone(celular.value.trim())) {
         celular.focus();
-        celular.classList.add('field-error');
+        celular.classList.add('border-red-400/50');
         celularError.classList.remove('hidden');
         return;
       }
 
       const data = {
-        mentor: mentor.value,
-        invasor: invasor.value.trim(),
-        nombre_completo: nombreCompleto.value.trim(),
-        celular: celular.value.trim(),
-        barrio: barrio.value.trim(),
-        peticiones: peticiones.value.trim(),
-        quiere_visita: quiereVisita.checked,
-        se_congrega_iglesia: seCongregaIglesia.checked,
+        mentor: mentor.value, invasor: invasor.value.trim(),
+        nombre_completo: nombreCompleto.value.trim(), celular: celular.value.trim(),
+        barrio: barrio.value.trim(), peticiones: peticiones.value.trim(),
+        quiere_visita: quiereVisita.checked, se_congrega_iglesia: seCongregaIglesia.checked,
       };
 
       const submitBtn = personForm.querySelector('button[type="submit"]');
@@ -377,50 +372,33 @@
 
       try {
         const res = await fetch('/api/personas', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data),
         });
-        if (!res.ok) {
-          const err = await res.json();
-          throw new Error(err.error || 'Error al guardar');
-        }
+        if (!res.ok) { const err = await res.json(); throw new Error(err.error || 'Error al guardar'); }
         showToast('Persona guardada correctamente', 'success');
-        personForm.reset();
-        mentor.value = '';
-        celular.classList.remove('field-error', 'field-success');
+        personForm.reset(); mentor.value = '';
+        celular.classList.remove('border-red-400/50');
         celularError.classList.add('hidden');
-      } catch (err) {
-        showToast(err.message, 'error');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Guardar';
-      }
+      } catch (err) { showToast(err.message, 'error'); }
+      finally { submitBtn.disabled = false; submitBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Guardar'; }
     });
 
     personForm.addEventListener('reset', () => {
       formFeedback.className = 'text-sm hidden';
-      celular.classList.remove('field-error', 'field-success');
+      celular.classList.remove('border-red-400/50');
       celularError.classList.add('hidden');
     });
 
     // ============ LIST ============
     function renderPersonas(list) {
-      loadingState.classList.add('hidden');
-      emptyState.classList.add('hidden');
-      noResults.classList.add('hidden');
+      loadingState.classList.add('hidden'); emptyState.classList.add('hidden'); noResults.classList.add('hidden');
 
       if (allPersonas.length === 0) {
-        cardsGrid.classList.add('hidden');
-        emptyState.classList.remove('hidden');
-        countBadge.textContent = '0';
+        cardsGrid.classList.add('hidden'); emptyState.classList.remove('hidden'); countBadge.textContent = '0';
         return;
       }
-
       if (list.length === 0) {
-        cardsGrid.classList.add('hidden');
-        noResults.classList.remove('hidden');
-        countBadge.textContent = allPersonas.length;
+        cardsGrid.classList.add('hidden'); noResults.classList.remove('hidden'); countBadge.textContent = allPersonas.length;
         return;
       }
 
@@ -428,44 +406,32 @@
       countBadge.textContent = allPersonas.length;
 
       cardsGrid.innerHTML = list.map(p => `
-        <div class="card-enter bg-white border border-slate-100 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow" role="listitem">
-          <div class="flex items-start justify-between gap-2 mb-2">
-            <h3 class="font-semibold text-slate-700 text-sm leading-snug">${escHtml(p.nombre_completo)}</h3>
+        <div class="card-enter glass rounded-xl p-4 hover:bg-white/[0.07] transition-all" role="listitem">
+          <div class="flex items-start justify-between gap-2 mb-2.5">
+            <h3 class="font-semibold text-slate-100 text-sm leading-snug">${escHtml(p.nombre_completo)}</h3>
             <div class="flex gap-1.5 shrink-0">
-              ${p.quiere_visita ? '<span class="inline-flex items-center gap-1 text-xs font-medium bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full border border-emerald-200"><i class="fa-solid fa-house"></i> Visita</span>' : ''}
-              ${p.se_congrega_iglesia ? '<span class="inline-flex items-center gap-1 text-xs font-medium bg-amber-50 text-amber-600 px-2 py-0.5 rounded-full border border-amber-200"><i class="fa-solid fa-place-of-worship"></i> Iglesia</span>' : ''}
+              ${p.quiere_visita ? '<span class="inline-flex items-center gap-1 text-[11px] font-medium bg-emerald-500/10 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/20 glow-emerald"><i class="fa-solid fa-house"></i> Visita</span>' : ''}
+              ${p.se_congrega_iglesia ? '<span class="inline-flex items-center gap-1 text-[11px] font-medium bg-amber-500/10 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/20 glow-amber"><i class="fa-solid fa-place-of-worship"></i> Iglesia</span>' : ''}
             </div>
           </div>
-          <div class="space-y-1 text-xs text-slate-400">
-            <p><span class="font-medium text-slate-500">Mentor:</span> ${escHtml(p.mentor)}</p>
-            ${p.invasor ? `<p><span class="font-medium text-slate-500">Invasor:</span> ${escHtml(p.invasor)}</p>` : ''}
-            ${p.celular ? `<p><span class="font-medium text-slate-500">Celular:</span> ${escHtml(p.celular)}</p>` : ''}
-            ${p.barrio ? `<p><span class="font-medium text-slate-500">Barrio:</span> ${escHtml(p.barrio)}</p>` : ''}
-            ${p.peticiones ? `<p><span class="font-medium text-slate-500">Peticiones:</span> ${escHtml(p.peticiones)}</p>` : ''}
+          <div class="space-y-1 text-xs text-slate-500">
+            <p><span class="font-medium text-slate-400">Mentor:</span> ${escHtml(p.mentor)}</p>
+            ${p.invasor ? `<p><span class="font-medium text-slate-400">Invasor:</span> ${escHtml(p.invasor)}</p>` : ''}
+            ${p.celular ? `<p><span class="font-medium text-slate-400">Celular:</span> ${escHtml(p.celular)}</p>` : ''}
+            ${p.barrio ? `<p><span class="font-medium text-slate-400">Barrio:</span> ${escHtml(p.barrio)}</p>` : ''}
+            ${p.peticiones ? `<p><span class="font-medium text-slate-400">Peticiones:</span> ${escHtml(p.peticiones)}</p>` : ''}
           </div>
         </div>
       `).join('');
     }
 
-    function escHtml(str) {
-      const d = document.createElement('div');
-      d.textContent = str;
-      return d.innerHTML;
-    }
+    function escHtml(str) { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
 
     function filterPersonas() {
       const q = searchInput.value.trim().toLowerCase();
-
       if (q.length < 3) return allPersonas;
-
       return allPersonas.filter(p => {
-        const searchable = [
-          p.nombre_completo,
-          p.barrio,
-          p.mentor,
-          p.invasor,
-          p.quiere_visita ? 'visita' : '',
-        ].filter(Boolean).join(' ').toLowerCase();
+        const searchable = [p.nombre_completo, p.barrio, p.mentor, p.invasor, p.quiere_visita ? 'visita' : ''].filter(Boolean).join(' ').toLowerCase();
         return searchable.includes(q);
       });
     }
@@ -473,26 +439,19 @@
     searchInput.addEventListener('input', () => renderPersonas(filterPersonas()));
 
     async function loadPersonas() {
-      loadingState.classList.remove('hidden');
-      cardsGrid.classList.add('hidden');
-      emptyState.classList.add('hidden');
-      noResults.classList.add('hidden');
-
+      loadingState.classList.remove('hidden'); cardsGrid.classList.add('hidden'); emptyState.classList.add('hidden'); noResults.classList.add('hidden');
       try {
         const res = await fetch('/api/personas');
         allPersonas = await res.json();
         renderPersonas(filterPersonas());
       } catch {
-        loadingState.classList.add('hidden');
-        cardsGrid.classList.add('hidden');
-        emptyState.classList.remove('hidden');
+        loadingState.classList.add('hidden'); cardsGrid.classList.add('hidden'); emptyState.classList.remove('hidden');
         emptyState.innerHTML = `
-          <div class="text-center py-16 text-red-300">
-            <i class="fa-solid fa-circle-exclamation text-4xl mb-3"></i>
+          <div class="text-center py-20 text-red-400/70">
+            <i class="fa-solid fa-circle-exclamation text-3xl mb-3"></i>
             <p class="text-sm">Error al cargar los datos</p>
-            <button onclick="loadPersonas()" class="mt-3 text-xs text-brand-500 hover:text-brand-600 underline">Reintentar</button>
-          </div>
-        `;
+            <button onclick="loadPersonas()" class="mt-3 text-xs text-cyan-400 hover:text-cyan-300 underline">Reintentar</button>
+          </div>`;
       }
     }
 
@@ -504,20 +463,15 @@
       try {
         const res = await fetch('/api/mentores');
         const mentores = await res.json();
-        const select = mentor;
-        select.innerHTML = '<option value="">Seleccionar mentor</option>';
+        mentor.innerHTML = '<option value="" class="bg-slate-900">Seleccionar mentor</option>';
         mentores.forEach(m => {
           const opt = document.createElement('option');
-          opt.value = m.nombre;
-          opt.textContent = m.nombre;
-          select.appendChild(opt);
+          opt.value = m.nombre; opt.textContent = m.nombre;
+          mentor.appendChild(opt);
         });
-      } catch {
-        mentor.innerHTML = '<option value="">Error al cargar mentores</option>';
-      }
+      } catch { mentor.innerHTML = '<option value="" class="bg-slate-900">Error al cargar mentores</option>'; }
     }
     loadMentores();
   </script>
-
 </body>
 </html>
