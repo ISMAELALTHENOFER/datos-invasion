@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
+const initDb = require('./src/config/initDb');
 const personasRouter = require('./src/routes/personas');
 const mentoresRouter = require('./src/routes/mentores');
 const { errorHandler, notFound } = require('./src/middleware/errorHandler');
@@ -28,10 +29,19 @@ app.use('/api/mentores', mentoresRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-const server = app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+async function start() {
+  console.log('Inicializando base de datos...');
+  await initDb();
+  console.log('Base de datos lista.');
 
-process.on('SIGTERM', () => {
-  server.close(() => process.exit(0));
+  const server = app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  });
+
+  process.on('SIGTERM', () => server.close(() => process.exit(0)));
+}
+
+start().catch(err => {
+  console.error('Error al iniciar la aplicación:', err);
+  process.exit(1);
 });
